@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="panel-body">
+
+    <div class="row">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">Ingrese los valores</label>
+            <div class="col-md-10">
+                <textarea class="form-control text-area-size" id="txtValues"></textarea>
+            </div>
+        </div>
+        <input type="button" class="btn btn-primary" value="Procesar Información" id="btnProcesar"/>
+    </div>
+    <br />
+    <div class="row">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">Resultado</label>
+            <div class="col-md-10">
+                <textarea class="form-control text-area-size" id="txtResponse" disabled></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        debugger;
+        $("#btnProcesar").on('click', function () {
+            var value = $("#txtValues").val();
+            $("#txtResponse").val("");
+            $.ajax({
+                url: '/Home/ProcesarOperaciones',
+                type: 'post',
+                data: JSON.stringify({value}),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    var messageAlert = "";
+                    if (!data.EstadoOperacion)
+                        messageAlert = "Se presentó un error :(";
+                    else
+                        messageAlert = "Datos procesados con exito! :)";
+                    alert(messageAlert);
+                    $("#txtResponse").val(data.Mensaje);
+                },
+            
+            });
+        });
+       
+    </script>
+}
+
