@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Clases\CubeService.cs" />
     <Compile Include="Interfaces\IOperacion.cs" />
-    <Compile Include="Clases\Operacion.cs" />
+    <Compile Include="Clases\OperacionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Validacion.cs" />
   </ItemGroup>
